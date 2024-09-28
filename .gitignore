@@ -1,2 +1,5 @@
+# Rust and Cargo build artifacts
 *.exe
 *.pdb
+**/target/*
+

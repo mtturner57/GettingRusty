@@ -1,23 +1,27 @@
+mod structs;
+use structs::cli_arg::CliArg;
+use clap::Parser;
+
 fn main() {
-    let args: Vec<String> = std::env::args().collect();
+    let args: CliArg = CliArg::parse();
 
-    println!("Total arguments: {}", args.len());
-
-    for (index, arg) in args.iter().enumerate() {
-        println!("  args[{}] = {:?}", index, arg);
-    }
-    // if args.len() < 1
+    //println!("Command: {:?} \n Arg: {:?}", args.command, args.arg);
     
-    // match mode {
-    //     '--help' => returnHelp(),
-    //     _ => returnHelp()
-    // }
-}
-
-fn listOfCommands() {
-
+    match &*args.command {
+        "help" => help(),
+        _ => help()
+    }
 }
 
 fn help() {
-    
+    println!(r#"
+TodoCli creates, updates, and removes tasks from a list to help you stay on top of your work.
+
+Commands:
+    add <task>          Add a task to the list
+    list                Lists all tasks
+    delete <task_id>    Deletes a task from the list
+    done <task_id>      Marks a task as done
+    help                Displays this help page
+    "#);
 }

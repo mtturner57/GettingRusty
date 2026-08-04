@@ -11,4 +11,4 @@ fn main() {
     let x = plus_1(5);
     println!("The value of five is: {five}");
     println!("The value of x is: {x}");
-} 
+}

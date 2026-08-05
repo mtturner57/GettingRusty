@@ -22,11 +22,33 @@ fn main() {
 
     match &*args.command {
         "add" => println!("add"),
-        "list" => println!("list"),
+        "list" => list(),
         "delete" => println!("delete"),
         "done" => println!("done"),
         "help" => help(),
         _ => help()
+    }
+}
+
+fn list() {
+    let tasks: Vec<Task> = match list_tasks() {
+        Ok(content) => serde_json::from_str(&content).unwrap(),
+        _ => { 
+            println!("Error retrieving tasks. Aborting...");
+            return;
+        }
+    };
+
+    println!(
+        r#"
+Tasks
+Id      Name        Done
+-------------------------
+        "#
+    );
+
+    for task in &tasks {
+        println!("{}        {}      {}\n", &task.id, &task.name, &task.done);
     }
 }
 

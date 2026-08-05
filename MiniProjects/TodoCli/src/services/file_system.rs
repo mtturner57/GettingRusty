@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{self, Write};
+use std::io::{self, Write, BufReader, Read};
 use std::path::Path;
 
 pub fn check_exists() -> io::Result<bool> {
@@ -12,6 +12,24 @@ pub fn create_file() -> io::Result<()> {
     Ok(())
 }
 
-pub fn list() {
-    // ...
+pub fn create_task() -> io::Result<String> {
+    let file = File::open("./task_list.txt")?;
+
+    let mut buf_reader = BufReader::new(file);
+    let mut contents = String::new();
+
+    buf_reader.read_to_string(&mut contents)?;
+
+    Ok(contents)
+}
+
+pub fn list_tasks() -> io::Result<String> {
+    let file = File::open("./task_list.txt")?;
+
+    let mut buf_reader = BufReader::new(file);
+    let mut contents = String::new();
+
+    buf_reader.read_to_string(&mut contents)?;
+
+    Ok(contents)
 }

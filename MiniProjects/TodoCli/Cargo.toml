@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"]}
+io = "0.0.2"

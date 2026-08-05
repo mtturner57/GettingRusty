@@ -1,14 +1,17 @@
-use std::fs::file;
-use std::io::prelude::*;
+use std::fs::File;
+use std::io::{self, Write};
+use std::path::Path;
 
-fn checkExists() {
-
+pub fn check_exists() -> io::Result<bool> {
+    Path::new("./task_list.txt").try_exists()
 }
 
-fn createFile() {
-
+pub fn create_file() -> io::Result<()> {
+    let mut file = File::create("./task_list.txt")?;
+    file.write_all(b"[]")?;
+    Ok(())
 }
 
-fn list() {
-
+pub fn list() {
+    // ...
 }

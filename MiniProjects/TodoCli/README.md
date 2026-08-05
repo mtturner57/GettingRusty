@@ -27,7 +27,7 @@ todo remove 2
 - Enums
 - Clap
 - Serde
-- JSON
+    - JSON
 - File I/O
 - Error handling
 

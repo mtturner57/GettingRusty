@@ -31,7 +31,7 @@ fn main() {
 }
 
 fn list() {
-    let tasks: Vec<Task> = match list_tasks() {
+    let tasks: Vec<Task> = match get_task_content() {
         Ok(content) => serde_json::from_str(&content).unwrap(),
         _ => { 
             println!("Error retrieving tasks. Aborting...");
@@ -48,7 +48,7 @@ Id      Name        Done
     );
 
     for task in &tasks {
-        println!("{}        {}      {}\n", &task.id, &task.name, &task.done);
+        println!("{}       {}        {}\n", &task.id, &task.name, &task.done);
     }
 }
 

@@ -12,7 +12,7 @@ pub fn create_file() -> io::Result<()> {
     Ok(())
 }
 
-pub fn create_task() -> io::Result<String> {
+pub fn get_task_content() -> io::Result<String> {
     let file = File::open("./task_list.txt")?;
 
     let mut buf_reader = BufReader::new(file);
@@ -23,13 +23,6 @@ pub fn create_task() -> io::Result<String> {
     Ok(contents)
 }
 
-pub fn list_tasks() -> io::Result<String> {
-    let file = File::open("./task_list.txt")?;
-
-    let mut buf_reader = BufReader::new(file);
-    let mut contents = String::new();
-
-    buf_reader.read_to_string(&mut contents)?;
-
-    Ok(contents)
+pub fn create_task(newTask: String) -> io::Result<String> {
+    let file = get_task_content();
 }

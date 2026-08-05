@@ -1,5 +1,6 @@
 mod structs;
-use structs::cli_arg::CliArg;
+use structs::cli_arg::*;
+use services::file_system::*;
 use clap::Parser;
 
 fn main() {
@@ -8,6 +9,10 @@ fn main() {
     //println!("Command: {:?} \n Arg: {:?}", args.command, args.arg);
     
     match &*args.command {
+        "add" =>,
+        "list" =>,
+        "delete" =>,
+        "done" =>,
         "help" => help(),
         _ => help()
     }

@@ -1,4 +1,6 @@
+use std::fs;
 use std::fs::File;
+use crate::Task;
 use std::io::{self, Write, BufReader, Read};
 use std::path::Path;
 
@@ -23,6 +25,17 @@ pub fn get_task_content() -> io::Result<String> {
     Ok(contents)
 }
 
-pub fn create_task(newTask: String) -> io::Result<String> {
-    let file = get_task_content();
+pub fn create_task(task: Task) -> io::Result<()> {
+    let contents = fs::read_to_string("./task_list.txt")
+        .unwrap_or_else(|_| "[]".to_string());
+
+    let mut tasks: Vec<Task> =
+        serde_json::from_str(&contents).unwrap_or_default();
+
+    tasks.push(task);
+
+    let json = serde_json::to_string_pretty(&tasks)?;
+    fs::write("task_list.json", json)?;
+
+    Ok(())
 }

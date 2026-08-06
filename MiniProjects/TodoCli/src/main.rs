@@ -30,6 +30,26 @@ fn main() {
     }
 }
 
+fn create(newTask: Task) {
+    let mut tasks: Vec<Task> = match get_task_content() {
+        Ok(content) => serde_json::from_str(&content).unwrap(),
+        _ => { 
+            println!("Error retrieving tasks. Aborting...");
+            return;
+        }
+    };
+    tasks.push(newTask);
+    
+    match create_task(serde_json::to_string(&tasks).unwrap()) {
+        Ok(()) => 
+        {
+            println!("Successfully added task to list\n");
+            list();
+        },
+        _ => println!("Error occurred adding task to list.")
+    };
+}
+
 fn list() {
     let tasks: Vec<Task> = match get_task_content() {
         Ok(content) => serde_json::from_str(&content).unwrap(),

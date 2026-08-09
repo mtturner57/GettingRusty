@@ -21,7 +21,7 @@ fn main() {
     }
 
     match &*args.command {
-        "add" => println!("add"),
+        "add" => create(&args.arg.unwrap()),
         "list" => list(),
         "delete" => println!("delete"),
         "done" => println!("done"),
@@ -30,7 +30,7 @@ fn main() {
     }
 }
 
-fn create(newTask: Task) {
+fn create(taskName: &String){
     let mut tasks: Vec<Task> = match get_task_content() {
         Ok(content) => serde_json::from_str(&content).unwrap(),
         _ => { 
@@ -38,9 +38,16 @@ fn create(newTask: Task) {
             return;
         }
     };
+
+    let newTask: Task = Task {
+        id: tasks.last().map_or(0, |t| t.id + 1),
+        name: taskName.to_string(),
+        done: false
+    };
+
     tasks.push(newTask);
     
-    match create_task(serde_json::to_string(&tasks).unwrap()) {
+    match create_task(&tasks) {
         Ok(()) => 
         {
             println!("Successfully added task to list\n");

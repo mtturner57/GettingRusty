@@ -5,17 +5,17 @@ use std::io::{self, Write, BufReader, Read};
 use std::path::Path;
 
 pub fn check_exists() -> io::Result<bool> {
-    Path::new("./task_list.txt").try_exists()
+    Path::new("./task_list.json").try_exists()
 }
 
 pub fn create_file() -> io::Result<()> {
-    let mut file = File::create("./task_list.txt")?;
+    let mut file = File::create("./task_list.json")?;
     file.write_all(b"[]")?;
     Ok(())
 }
 
 pub fn get_task_content() -> io::Result<String> {
-    let file = File::open("./task_list.txt")?;
+    let file = File::open("./task_list.json")?;
 
     let mut buf_reader = BufReader::new(file);
     let mut contents = String::new();
@@ -25,15 +25,7 @@ pub fn get_task_content() -> io::Result<String> {
     Ok(contents)
 }
 
-pub fn create_task(task: Task) -> io::Result<()> {
-    let contents = fs::read_to_string("./task_list.txt")
-        .unwrap_or_else(|_| "[]".to_string());
-
-    let mut tasks: Vec<Task> =
-        serde_json::from_str(&contents).unwrap_or_default();
-
-    tasks.push(task);
-
+pub fn create_task(tasks: &Vec<Task>) -> io::Result<()> {
     let json = serde_json::to_string_pretty(&tasks)?;
     fs::write("task_list.json", json)?;
 

@@ -23,7 +23,7 @@ fn main() {
     match &*args.command {
         "add" => create(&args.arg.unwrap()),
         "list" => list(),
-        "delete" => println!("delete"),
+        "delete" => delete(&args.arg.unwrap() as u32),
         "done" => println!("done"),
         "help" => help(),
         _ => help()
@@ -55,6 +55,10 @@ fn create(taskName: &String){
         },
         _ => println!("Error occurred adding task to list.")
     };
+}
+
+fn delete(id: u32) {
+
 }
 
 fn list() {
